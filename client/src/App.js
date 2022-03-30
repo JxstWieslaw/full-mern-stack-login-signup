@@ -1,58 +1,19 @@
-import { useState } from "react";
-import "./App.css";
+import React from 'react';
+import {BrowserRouter,Route, Routes} from 'react-router-dom'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
-function App() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+ const App = () =>{
+     return <div>
+         
+<BrowserRouter>
+    <Routes>
+        <Route path="/login" exact element={ <Login />  } />
+        <Route path="/register" exact element={ <Register />  } />
+   </Routes>
+</BrowserRouter>
 
-    async function registerUser(event) {
-      event.preventDefault()
-        const response = await fetch("http://localhost:1337/api/register", {
-          method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name,
-                email,
-                password
-            })
-        });
+     </div>
+ }
 
-        const data = await response.json();
-        console.log(data)
-    }
-
-    return (
-        <div>
-            <h1>Register</h1>
-            <form onSubmit={registerUser}>
-                <input
-                    value={name}
-                    onChange={({target}) => setName(target.value)}
-                    type="text"
-                    placeholder="Name"
-                />
-                <br />
-                <input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    type="email"
-                    placeholder="Email"
-                />
-                <br />
-                <input
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    type="passowrd"
-                    placeholder="Password"
-                />
-                <br />
-                <input type="submit" value="Register" />
-            </form>
-        </div>
-    );
-}
-
-export default App;
+ export default App
